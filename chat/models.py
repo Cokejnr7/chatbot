@@ -1,6 +1,10 @@
 from django.db import models
-
+from django.contrib.auth import get_user_model
 # Create your models here.
 
-# class Prompt(models.Model):
-#     text = models.TextField()
+User = get_user_model()
+
+
+class Prompt(models.Model):
+    owner = models.OneToOneField(User, on_delete=models.CASCADE)
+    text = models.TextField()

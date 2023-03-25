@@ -10,7 +10,7 @@ class CustomManager(BaseUserManager):
         if not email:
             raise ValidationError(_('You must provide an email.'))
 
-        email = self.normalize(email)
+        email = self.normalize_email(email)
 
         user = self.model(email=email, **other_fields)
 

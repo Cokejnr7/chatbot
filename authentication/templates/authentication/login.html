@@ -1,0 +1,21 @@
+{% extends 'sign.html' %}
+
+{% block content %}
+
+<form class="ui form">
+
+  <h4 class="ui dividing header">Sign in</h4>
+  
+  <div class="required field">
+    <label>Email</label>
+    <input type="email" name="email" class="email" placeholder="Email">
+  </div>
+  <div class="required field">
+    <label>Password</label>
+    <input type="password" class="password" name="password" placeholder="Password">
+  </div>
+
+  <div class="ui button in" tabindex="0">Sign in</div>
+</form>
+
+{% endblock %}

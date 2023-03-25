@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
+ALGORITHM = config('ALGORITHM')
 
 if SECRET_KEY is None:
     print(
@@ -50,6 +51,11 @@ INSTALLED_APPS = [
     'chat.apps.ChatConfig',
     'authentication.apps.AuthenticationConfig'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':
+    ['authentication.backends.JWTAuthentication']
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

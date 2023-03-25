@@ -82,3 +82,8 @@ async function sendPrompt(text){
   data = await response.json()
   return data;
 }
+
+
+async function getPrompts(){
+  response = await fetch();
+}
