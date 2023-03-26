@@ -25,6 +25,8 @@ class UserCreateView(generics.GenericAPIView):
 
 
 class UserLoginView(generics.GenericAPIView):
+    serializer_class = UserSerializer
+    
     def post(self, request):
         data = request.data
         email = data.get('email')
@@ -53,7 +55,7 @@ class UserLoginView(generics.GenericAPIView):
             "refresh_token": refresh_token
         }
 
-        return Response(data, status=status.HTTP_400_BAD_REQUEST)
+        return Response(data, status=status.HTTP_200_OK)
 
 
 def login(request):

@@ -1,89 +1,86 @@
-//endpoint url
-const URL = "https://chat.kolawolecoke.repl.co/prompt/";
-
-
-const userInput = document.querySelector('.prompt');
-const sendButton = document.querySelector('.send');
-const textArea = document.querySelector('.textarea');
-const allParagraphs = document.getElementsByTagName('p');
-
-sendButton.addEventListener('click',myFunc);
-userInput.addEventListener('keypress',enterFunc);
-
-function enterFunc(e){
-  if(e.key ==='Enter') myFunc(e);
+if (localStorage.getItem("auth") === null) {
+  window.location.pathname = "/auth/signin/";
 }
 
-async function myFunc(e){
-  if(userInput.value !==""){
-    
-  //make user input and send button hidden
-  userInput.style.visibility = "hidden";
-  sendButton.style.visibility = "hidden";
+//endpoint url
+const URL = "http://127.0.0.1:8000/prompt/";
 
-  //create new elements
-  const paragraph = document.createElement("p");
-  const bot = document.createElement("p");
+const userInput = document.querySelector(".prompt");
+const sendButton = document.querySelector(".send");
+const textArea = document.querySelector(".textarea");
+const allParagraphs = document.getElementsByTagName("p");
 
-  //change bot response color grey
-  bot.style.color = "grey"
+sendButton.addEventListener("click", myFunc);
+userInput.addEventListener("keypress", enterFunc);
 
-  //for typing effect
-  let i = 0;
-  let speed = 50;
+function enterFunc(e) {
+  if (e.key === "Enter") myFunc(e);
+}
 
-  //user prompt text
-  let textValue = userInput.value;
-  textArea.append(paragraph);
-  paragraph.textContent = "USER: ";
-  await typeWriter(paragraph,i,speed,textValue);
+async function myFunc(e) {
+  if (userInput.value !== "") {
+    //make user input and send button hidden
+    userInput.style.visibility = "hidden";
+    sendButton.style.visibility = "hidden";
 
-  //bot responseText and typewriter effect
-  let responseText = await sendPrompt(textValue);
-  console.log(responseText)
-  bot.textContent = "BOT101: ";
-  textArea.append(bot);
-  typeWriter(bot,i,speed,responseText);
+    //create new elements
+    const paragraph = document.createElement("p");
+    const bot = document.createElement("p");
 
-    bot.scrollIntoView()
+    //change bot response color grey
+    bot.style.color = "grey";
 
-  //reset user input and make it visible
-   userInput.value = "";
+    //for typing effect
+    let i = 0;
+    let speed = 50;
+
+    //user prompt text
+    let textValue = userInput.value;
+    textArea.append(paragraph);
+    paragraph.textContent = "USER: ";
+    await typeWriter(paragraph, i, speed, textValue);
+
+    //bot responseText and typewriter effect
+    let responseText = await sendPrompt(textValue);
+    console.log(responseText);
+    bot.textContent = "BOT101: ";
+    textArea.append(bot);
+    typeWriter(bot, i, speed, responseText);
+
+    bot.scrollIntoView();
+
+    //reset user input and make it visible
+    userInput.value = "";
     userInput.style.visibility = "visible";
     sendButton.style.visibility = "visible";
+  } else if (userInput.value === "") {
+    alert("provide an input");
   }
-
-  else if(userInput.value ===""){
-    alert('provide an input');
-  }
-  
 }
 
 //recursive function that does a typewriter effect
-function typeWriter(p,i,speed,txt) {
+function typeWriter(p, i, speed, txt) {
   if (i < txt.length) {
     p.textContent += txt.charAt(i);
     i++;
-    setTimeout(()=>{
-      typeWriter(p,i,speed,txt)
+    setTimeout(() => {
+      typeWriter(p, i, speed, txt);
     }, speed);
   }
 }
 
-async function sendPrompt(text){
-  response = await fetch(URL,{
-    method:"POST",
+async function sendPrompt(text) {
+  response = await fetch(URL, {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(text)
-  }
-  )
-  data = await response.json()
+    body: JSON.stringify(text),
+  });
+  data = await response.json();
   return data;
 }
 
-
-async function getPrompts(){
+async function getPrompts() {
   response = await fetch();
 }
